@@ -6,7 +6,6 @@ import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bu
 
 export default
 class Contact extends Component {
-
   render () {
     return (
       <ListItem

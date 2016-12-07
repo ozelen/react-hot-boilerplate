@@ -2,17 +2,22 @@ import React, {Component} from 'react';
 import Contact from './Contact';
 import {List} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
+import {Container} from 'flux/utils';
+import ContactsStore from './ContactsStore';
 
-export default
-class Contacts extends Component {
+class ContactsList extends Component {
 
   constructor (props) {
-    super(props)
-    this.state = {
-        contacts: [
-        {name: 'Oleksiy'},
-        {name: 'John'}
-      ]
+    super(props);
+  }
+
+  static getStores () {
+    return [ContactsStore];
+  }
+
+  static calculateState () {
+    return {
+      contacts: ContactsStore.getState().toArray()
     }
   }
 
@@ -24,10 +29,14 @@ class Contacts extends Component {
         <List>
           <Subheader>Last used</Subheader>
           {this.state.contacts.map((contact, key) =>
-            <Contact {...contact} key={key} />
+            <Contact name={contact.name} key={key} />
           )}
         </List>
       </div>
     );
   }
 }
+
+
+const ContactsListContainer = Container.create(ContactsList);
+export default ContactsListContainer;
